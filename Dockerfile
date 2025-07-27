@@ -44,9 +44,9 @@ USER spring:spring
 # Expose port (Railway will set PORT environment variable)
 EXPOSE 8080
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=60s --retries=3 \
-  CMD curl -f http://localhost:${PORT:-8080}/actuator/health || exit 1
+# Health check disabled - Railway handles this via railway.json
+# HEALTHCHECK --interval=30s --timeout=3s --start-period=60s --retries=3 \
+#   CMD curl -f http://localhost:8080/actuator/health || exit 1
 
 # Start the application
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
