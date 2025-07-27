@@ -23,7 +23,7 @@ public class Member {
     private Long id;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "team_id", nullable = false)
+    @JoinColumn(name = "team_id", nullable = true)
     private Team team;
     
     @Column(name = "discord_user_id", unique = true, nullable = false)
