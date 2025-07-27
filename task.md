@@ -30,21 +30,22 @@ Starte die App lokal, prüfe /actuator/health und logge das Ergebnis.
 
 ---
 
-## 1) Datenmodell & Migrationen
+
+
 
 **Ziel:** UTC-basierte Speicherung; klare Indizes; Grundlage für Planner & Jobs.
 
-* [ ] **Flyway V1\_\_init.sql** erstellen mit Tabellen:
+* [x] **Flyway V1\_\_init.sql** erstellen mit Tabellen: — erledigt am 2025-07-27 15:15
 
     * `team(id, name, discord_guild_id, reminder_channel_id, tz, min_players, min_duration_minutes, reminder_hours TEXT, created_at)`
     * `member(id, team_id FK, discord_user_id UNIQUE, display_name, avatar_url, tz, roles, created_at)`
     * `availability(id, member_id FK, starts_at_utc timestamptz, ends_at_utc timestamptz, available boolean, note, created_at)`
     * `training_session(id, team_id FK, starts_at_utc timestamptz, ends_at_utc timestamptz, source VARCHAR(16) CHECK (source IN ('AUTO','MANUAL')), title, created_by_member_id FK, created_at)`
     * `job_lock(key varchar primary key, until timestamptz)`
-* [ ] **Constraints** – `starts_at_utc < ends_at_utc`.
-* [ ] **Indizes** – `availability(member_id, starts_at_utc)`, `training_session(team_id, starts_at_utc)`.
-* [ ] **JPA-Entities & Repositories** anlegen.
-* [ ] **Testcontainers**-Test: Migration läuft, Grund-CRUD funktioniert.
+* [x] **Constraints** – `starts_at_utc < ends_at_utc`. — erledigt am 2025-07-27 15:15
+* [x] **Indizes** – `availability(member_id, starts_at_utc)`, `training_session(team_id, starts_at_utc)`. — erledigt am 2025-07-27 15:15
+* [x] **JPA-Entities & Repositories** anlegen. — erledigt am 2025-07-27 15:15
+* [x] **Testcontainers**-Test: Migration läuft, Grund-CRUD funktioniert. — erledigt am 2025-07-27 15:15
 
 **Prompt-Vorschlag**
 
@@ -274,4 +275,5 @@ MIN_DURATION_MINUTES=90
 > Hier dokumentiert der Agent nach jedem Commit kurz die Änderungen.
 
 * 2025-07-27 15:02 – Projekt-Basis eingerichtet: Spring Boot 3.5.4, Dependencies, application.yml, docker-compose.yml, .env.example; build.gradle, src/main/resources/
+* 2025-07-27 15:16 – Datenmodell & Migrationen implementiert: Flyway V1__init.sql, JPA-Entities (Team, Member, Availability, TrainingSession, JobLock), Spring Data Repositories, Testcontainers-Integrationstests; src/main/resources/db/migration/, src/main/java/*/entity/, src/main/java/*/repository/, src/test/java/*/repository/
 
