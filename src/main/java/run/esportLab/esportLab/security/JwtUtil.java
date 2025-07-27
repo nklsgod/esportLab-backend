@@ -6,7 +6,7 @@ import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import run.esportLab.esportLab.model.Member;
+import run.esportLab.esportLab.entity.Member;
 
 import javax.crypto.SecretKey;
 import java.time.Instant;

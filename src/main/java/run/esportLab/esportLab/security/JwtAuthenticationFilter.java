@@ -11,12 +11,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import run.esportLab.esportLab.model.Member;
+import run.esportLab.esportLab.entity.Member;
 import run.esportLab.esportLab.service.CustomOAuth2User;
-import run.esportLab.esportLab.service.MemberService;
+import run.esportLab.esportLab.repository.MemberRepository;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -24,7 +25,7 @@ import java.util.Collections;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
-    private final MemberService memberService;
+    private final MemberRepository memberRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) 
@@ -50,16 +51,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         
         if (discordUserId != null && memberId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             try {
-                Member member = memberService.findById(memberId);
-                if (member != null && member.getDiscordUserId().equals(discordUserId)) {
-                    CustomOAuth2User oauth2User = new CustomOAuth2User(member);
-                    
-                    UsernamePasswordAuthenticationToken authentication = 
-                        new UsernamePasswordAuthenticationToken(oauth2User, null, Collections.emptyList());
-                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
-                    log.debug("Successfully authenticated user: {}", discordUserId);
+                Optional<Member> memberOpt = memberRepository.findById(memberId);
+                if (memberOpt.isPresent()) {
+                    Member member = memberOpt.get();
+                    if (member.getDiscordUserId().equals(discordUserId)) {
+                        CustomOAuth2User oauth2User = new CustomOAuth2User(member);
+                        
+                        UsernamePasswordAuthenticationToken authentication = 
+                            new UsernamePasswordAuthenticationToken(oauth2User, null, Collections.emptyList());
+                        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                        
+                        SecurityContextHolder.getContext().setAuthentication(authentication);
+                        log.debug("Successfully authenticated user: {}", discordUserId);
+                    }
                 }
             } catch (Exception e) {
                 log.debug("Failed to authenticate user from JWT: {}", e.getMessage());

@@ -10,15 +10,30 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
-@RequiredArgsConstructor
 public class CustomOAuth2User implements OAuth2User {
 
     private final OAuth2User oauth2User;
     private final Member member;
+    
+    // Constructor for OAuth2 login
+    public CustomOAuth2User(OAuth2User oauth2User, Member member) {
+        this.oauth2User = oauth2User;
+        this.member = member;
+    }
+    
+    // Constructor for JWT authentication (no OAuth2User available)
+    public CustomOAuth2User(Member member) {
+        this.oauth2User = null;
+        this.member = member;
+    }
 
     @Override
     public Map<String, Object> getAttributes() {
-        return oauth2User.getAttributes();
+        if (oauth2User != null) {
+            return oauth2User.getAttributes();
+        }
+        // Return empty map for JWT authentication
+        return Collections.emptyMap();
     }
 
     @Override
