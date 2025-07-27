@@ -61,12 +61,12 @@ test
 
 **Flow:** Authorization Code → Token → `/users/@me` → `Member` anlegen/aktualisieren → HttpOnly Session-Cookie.
 
-* [ ] **SecurityConfig** mit Session-Cookies (HttpOnly, Secure, SameSite=Lax).
-* [ ] **Custom Provider**: `authorization-uri`, `token-uri`, `user-info-uri`, Scopes `identify` (+ optional `email`).
-* [ ] **Endpoints**: `/auth/discord/login`, `/auth/discord/callback`, `/auth/logout`.
-* [ ] **User-Linking**: `discord_user_id` als stabiler Identifier; `Member` mit `team` verknüpfen (vorerst ein Team, später multi-team-fähig).
-* [ ] **API**: `GET /api/me` gibt Profil (id, discordUserId, displayName, avatarUrl, tz, roles, teamIds).
-* [ ] **Tests**: Security-Flow (Mock OAuth), Cookie-Eigenschaften, Fehlerpfade.
+* [x] **SecurityConfig** mit Session-Cookies (HttpOnly, Secure, SameSite=Lax). — erledigt am 2025-07-27 16:36
+* [x] **Custom Provider**: `authorization-uri`, `token-uri`, `user-info-uri`, Scopes `identify` (+ optional `email`). — erledigt am 2025-07-27 16:36
+* [x] **Endpoints**: `/auth/discord/login`, `/auth/discord/callback`, `/auth/logout`. — erledigt am 2025-07-27 16:36
+* [x] **User-Linking**: `discord_user_id` als stabiler Identifier; `Member` mit `team` verknüpfen (vorerst ein Team, später multi-team-fähig). — erledigt am 2025-07-27 16:36
+* [x] **API**: `GET /api/me` gibt Profil (id, discordUserId, displayName, avatarUrl, tz, roles, teamIds). — erledigt am 2025-07-27 16:36
+* [x] **Tests**: Security-Flow (Mock OAuth), Cookie-Eigenschaften, Fehlerpfade. — erledigt am 2025-07-27 16:36
 
 **Prompt-Vorschlag**
 
@@ -277,4 +277,5 @@ MIN_DURATION_MINUTES=90
 
 * 2025-07-27 15:02 – Projekt-Basis eingerichtet: Spring Boot 3.5.4, Dependencies, application.yml, docker-compose.yml, .env.example; build.gradle, src/main/resources/
 * 2025-07-27 15:16 – Datenmodell & Migrationen implementiert: Flyway V1__init.sql, JPA-Entities (Team, Member, Availability, TrainingSession, JobLock), Spring Data Repositories, Testcontainers-Integrationstests; src/main/resources/db/migration/, src/main/java/*/entity/, src/main/java/*/repository/, src/test/java/*/repository/
+* 2025-07-27 16:36 – Discord OAuth2 implementiert: SecurityConfig mit Session-Management, CustomOAuth2UserService, AuthController (/auth/discord/login, /auth/logout), UserController (/api/me), UserProfileDto, CSRF-Schutz für API-Endpoints; src/main/java/*/config/, src/main/java/*/controller/, src/main/java/*/service/, src/main/java/*/dto/
 

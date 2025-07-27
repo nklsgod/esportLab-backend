@@ -26,22 +26,13 @@ class AuthControllerTest {
     private CustomOAuth2UserService customOAuth2UserService;
 
     @Test
-    void discordLogin_ShouldReturnRedirectInfo() throws Exception {
+    void discordLogin_ShouldRedirectToOAuth2() throws Exception {
         mockMvc.perform(get("/auth/discord/login"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json"))
-                .andExpect(jsonPath("$.message").value("Redirecting to Discord OAuth2..."))
-                .andExpect(jsonPath("$.redirectUrl").value("/oauth2/authorization/discord"));
+                .andExpect(status().isFound())
+                .andExpect(header().string("Location", "/oauth2/authorization/discord"));
     }
 
-    @Test
-    @WithMockUser
-    void logout_ShouldReturnSuccessMessage() throws Exception {
-        mockMvc.perform(post("/auth/logout").with(csrf()))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json"))
-                .andExpect(jsonPath("$.message").value("Logged out successfully"));
-    }
+    // Logout is tested separately as it's handled by Spring Security
 
     @Test
     void authStatus_WhenNotAuthenticated_ShouldReturnFalse() throws Exception {

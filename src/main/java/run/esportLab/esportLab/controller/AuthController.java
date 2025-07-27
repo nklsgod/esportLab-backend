@@ -22,26 +22,12 @@ import java.util.Map;
 public class AuthController {
 
     @GetMapping("/discord/login")
-    public ResponseEntity<Map<String, String>> discordLogin() {
-        // This endpoint triggers the OAuth2 flow
-        // Spring Security will redirect to Discord automatically
-        return ResponseEntity.ok(Map.of(
-            "message", "Redirecting to Discord OAuth2...",
-            "redirectUrl", "/oauth2/authorization/discord"
-        ));
+    public void discordLogin(HttpServletResponse response) throws Exception {
+        // Direct redirect to Discord OAuth2 authorization
+        response.sendRedirect("/oauth2/authorization/discord");
     }
 
-    @PostMapping("/logout")
-    public ResponseEntity<Map<String, String>> logout(HttpServletRequest request, 
-                                                     HttpServletResponse response) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null) {
-            new SecurityContextLogoutHandler().logout(request, response, auth);
-            log.info("User logged out: {}", auth.getName());
-        }
-        
-        return ResponseEntity.ok(Map.of("message", "Logged out successfully"));
-    }
+    // Logout is handled by Spring Security automatically at /auth/logout
 
     @GetMapping("/status")
     public ResponseEntity<Map<String, Object>> authStatus(Authentication authentication) {
