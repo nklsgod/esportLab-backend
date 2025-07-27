@@ -49,7 +49,7 @@ server:
       cookie:
         http-only: true
         secure: ${COOKIE_SECURE:false}
-        same-site: lax
+        same-site: none
 
 app:
   base-url: ${APP_BASE_URL:http://localhost:8080}
