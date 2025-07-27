@@ -43,7 +43,7 @@ spring:
             user-name-attribute: id
 
 server:
-  port: ${SERVER_PORT:8080}
+  port: ${PORT:8080}
   servlet:
     session:
       cookie:
@@ -111,6 +111,10 @@ spring:
   
   jpa:
     show-sql: false
+    
+  flyway:
+    baseline-on-migrate: true
+    validate-on-migrate: true
   
 server:
   servlet:
@@ -118,7 +122,18 @@ server:
       cookie:
         secure: true
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when-authorized
+
 logging:
   level:
     org.springframework.security: INFO
     org.springframework.web: INFO
+    org.flywaydb: INFO
+    run.esportLab: INFO

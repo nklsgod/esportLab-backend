@@ -33,6 +33,7 @@ Starte die App lokal, prüfe /actuator/health und logge das Ergebnis.
 
 
 
+
 **Ziel:** UTC-basierte Speicherung; klare Indizes; Grundlage für Planner & Jobs.
 
 * [x] **Flyway V1\_\_init.sql** erstellen mit Tabellen: — erledigt am 2025-07-27 15:15
