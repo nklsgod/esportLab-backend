@@ -54,7 +54,7 @@ Starte die App lokal, prüfe /actuator/health und logge das Ergebnis.
 Erstelle Flyway V1__init.sql mit allen oben gelisteten Tabellen, Indizes und Checks. Implementiere die dazu passenden JPA-Entities (records/Builder ok) und Spring Data Repositories.
 Füge einen Integrationstest mit Testcontainers (PostgreSQL) hinzu, der Migrationen ausführt und einfache CRUD-Operationen pro Tabelle prüft.
 ```
-
+test
 ---
 
 ## 2) Discord OAuth2 – Login & Registrierung
