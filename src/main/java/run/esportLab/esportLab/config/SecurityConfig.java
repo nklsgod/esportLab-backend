@@ -39,13 +39,6 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
             )
             .oauth2Login(oauth2 -> oauth2
-                .loginPage("/auth/discord/login")
-                .authorizationEndpoint(authorization -> authorization
-                    .baseUri("/auth/discord/login")
-                )
-                .redirectionEndpoint(redirection -> redirection
-                    .baseUri("/auth/discord/callback")
-                )
                 .userInfoEndpoint(userInfo -> userInfo
                     .userService(customOAuth2UserService)
                 )
