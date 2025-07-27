@@ -40,4 +40,10 @@ public class AuthController {
         
         return ResponseEntity.ok(Map.of("authenticated", false));
     }
+    
+    @PostMapping("/logout")
+    public ResponseEntity<Map<String, String>> logout() {
+        // With JWT, logout is handled client-side by removing the token
+        return ResponseEntity.ok(Map.of("message", "Logged out successfully"));
+    }
 }
