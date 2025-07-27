@@ -1,0 +1,15 @@
+# Ensure Dockerfile and essential files are included
+!Dockerfile
+!railway.json
+!build.gradle
+!settings.gradle
+!gradlew
+!gradle/
+!src/
+
+# Exclude unnecessary files
+.git/
+.idea/
+build/
+.gradle/
+*.log
