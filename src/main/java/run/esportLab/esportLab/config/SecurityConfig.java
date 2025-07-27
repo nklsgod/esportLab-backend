@@ -43,7 +43,7 @@ public class SecurityConfig {
                 .userInfoEndpoint(userInfo -> userInfo
                     .userService(customOAuth2UserService)
                 )
-                .defaultSuccessUrl("/api/me", true)
+                .defaultSuccessUrl("https://esportlab.run", true)
                 .failureUrl("/auth/login?error")
             )
             .logout(logout -> logout
