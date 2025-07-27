@@ -64,4 +64,10 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
      */
     @Query("SELECT m FROM Member m WHERE m.team.id = :teamId AND m.roles LIKE '%ADMIN%'")
     List<Member> findAdminsByTeamId(@Param("teamId") Long teamId);
+    
+    /**
+     * Find members by team ID and roles containing a specific role
+     */
+    @Query("SELECT m FROM Member m WHERE m.team.id = :teamId AND m.roles LIKE %:role%")
+    List<Member> findByTeamIdAndRolesContaining(@Param("teamId") Long teamId, @Param("role") String role);
 }

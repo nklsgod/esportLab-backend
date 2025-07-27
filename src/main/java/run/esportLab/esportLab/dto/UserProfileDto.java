@@ -19,4 +19,10 @@ public class UserProfileDto {
     private String tz;
     private String roles;
     private List<Long> teamIds;
+    
+    // Team information
+    private TeamDto team;
+    private Boolean hasTeam;
+    private Boolean isTeamOwner;
+    private Boolean isTeamAdmin;
 }
